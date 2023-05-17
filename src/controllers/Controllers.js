@@ -3,19 +3,19 @@ const Service = require('../services/Service');
 // Modulo para buscar todos
 module.exports = {
     buscarListagem: async (req, res) => {
-        let json = {error:'', result:[]};
+        let json = {error:'', produtor:[], propriedade:[]};
 
         let produtor = await Service.buscarProdutor();
         let propriedade = await Service.buscarPropriedade();
 
         for(let i in produtor){
-            json.result.push({
+            json.produtor.push({
                 nomeProdutor: produtor[i].nomeProdutor,
                 cpf: produtor[i].cpfProdutor
             });   
         }
         for(let i in propriedade){
-            json.result.push({
+            json.propriedade.push({
                 nomePropriedade: propriedade[i].nomePropriedade,
                 cadastroRural: propriedade[i].cadastroRural
             });
