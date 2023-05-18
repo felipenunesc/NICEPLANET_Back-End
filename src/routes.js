@@ -11,13 +11,16 @@ const SECRET = 'felipetools';
 router.use(bodyParser.json());
 
 // Rota publica
-router.get('/', (req, res)=>{
+router.get('/', async (req, res)=>{
     res.json({ message: "Tudo ok por aqui!" });
 });
 
 // Rota para verificar JWT
 const verifyJWT = (req, res, next) => {
     const token = req.headers['x-access-token'];
+    const index = blacklist.findIndex(item => item === token);
+    if(index !== -1) return res.status(401).end();
+
     jwt.verify(token, SECRET, (err, decoded) => {
         if(err) return res.status(401).end();
 
@@ -32,19 +35,26 @@ router.get('/listagem', verifyJWT, (req, res) => {
     Controllers.buscarListagem(req,res);
 });
 
+
 // Rota login
-router.post('/login', (req, res)=>{
-    if (req.body.user === 'felipe' && req.body.password === '12345') {
+router.post('/login', async (req, res)=>{
+    const usuarios = await Controllers.buscaUser();
+    const verificaUsuarios = usuarios.some(obj => obj.user === req.body.user && obj.password === req.body.password);
+
+    if (verificaUsuarios) {
         const token = jwt.sign({userId: 1}, SECRET, { expiresIn: 300 });
         return res.json({ auth: true, token });
     }
     res.status(401).end();
 });
 
+// BlackList
+const blacklist = [];
+
 // Rota logout
-router.post('/logout', (req, res)=>{
-    res.json({ message: "Logout Realizado!" });
-    res.end();
+router.post('/logout', (req, res) => {
+    blacklist.push(req.headers['x-access-token']);
+    res.json({message: "Logout realizado com sucesso!"});
 })
 
 module.exports = router;

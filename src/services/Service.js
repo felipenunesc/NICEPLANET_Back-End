@@ -5,8 +5,8 @@ const db = require('../db'); // Chama conexão
 
 
 const buscarProdutor = () =>{
-    return new Promise((aceito, rejeitado)=> {
-        db.query('SELECT * FROM produtor', (error, results)=>{
+    return new Promise((aceito, rejeitado) => {
+        db.query('SELECT * FROM produtor', (error, results) => {
             if(error) { rejeitado(error); return; }
             aceito(results);
         });
@@ -14,9 +14,18 @@ const buscarProdutor = () =>{
 }
 
 const buscarPropriedade = () =>{
-    return new Promise((aceito, rejeitado)=> {
-        db.query('SELECT * FROM propriedade', (error, results)=>{
+    return new Promise((aceito, rejeitado) => {
+        db.query('SELECT * FROM propriedade', (error, results) => {
             if(error) { rejeitado(error); return; }
+            aceito(results);
+        });
+    });
+}
+
+const buscaUser = () => {
+    return new Promise((aceito, rejeitado) => {
+        db.query('SELECT * FROM usuario', (error, results) => {
+            if(error) {rejeitado(error); return; }
             aceito(results);
         });
     });
@@ -25,4 +34,5 @@ const buscarPropriedade = () =>{
 module.exports = {
     buscarProdutor,
     buscarPropriedade,
+    buscaUser
 };
