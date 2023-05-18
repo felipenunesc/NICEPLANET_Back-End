@@ -31,8 +31,52 @@ const buscaUser = () => {
     });
 }
 
+
+// Buscar ID's
+const buscaPorIdProdutor = async (id) => {
+    return new Promise((aceito, rejeitado) => {
+        db.query('SELECT * FROM produtor WHERE idProdutor = ?', [id], (error, results) => {
+            if(error) { rejeitado(error); return; }
+            if(results.length > 0){
+                aceito(results[0]);
+            }else{
+                aceito(false);
+            }
+        });
+    })
+}
+
+const buscaPorIdPropriedade = async (id) => {
+    return new Promise((aceito, rejeitado) => {
+        db.query('SELECT * FROM propriedade WHERE idPropriedade = ?', [id], (error, results) => {
+            if(error) { rejeitado(error); return; }
+            if(results.length > 0){
+                aceito(results[0]);
+            }else{
+                aceito(false);
+            }
+        });
+    })
+}
+
+const cadastrarProdutor = async (nomeProdutor, cpfProdutor) => {
+    const sql = 'INSERT INTO produtor (nomeProdutor, cpfProdutor) VALUES (?, ?)';
+    await db.query(sql, [nomeProdutor, cpfProdutor]);
+}
+
+const cadastrarPropriedade = async (nomePropriedade, cadastroRural) => {
+    const sql = 'INSERT INTO propriedade (nomePropriedade, cadastroRural) VALUES (?, ?)';
+    await db.query(sql, [nomePropriedade, cadastroRural]);
+}
+
+
+
 module.exports = {
     buscarProdutor,
     buscarPropriedade,
-    buscaUser
+    buscaUser,
+    buscaPorIdProdutor,
+    buscaPorIdPropriedade,
+    cadastrarProdutor,
+    cadastrarPropriedade
 };

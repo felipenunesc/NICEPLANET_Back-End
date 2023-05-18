@@ -31,9 +31,48 @@ const buscaUser = async () => {
     return jsonUser;
 }
 
+// Modulo para buscar user ou/e propriedades
+const buscaPorIdProdutor = async (id) => {
+    try {
+        const result = await Service.buscaPorIdProdutor(id);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+const buscaPorIdPropriedade = async (id) => {
+    try {
+        const result = await Service.buscaPorIdPropriedade(id);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+const cadastro = async (req,res) => {
+    let json = {error:'', result:{}};
+
+    let nomeProdutor = req.body.nomeProdutor;
+    let cpfProdutor = req.body.cpfProdutor;
+
+    if (nomeProdutor && cpfProdutor) {
+        let idProdutor = await Service.cadastro(nomeProdutor, cpfProdutor);
+        json.result = {
+            id: idProdutor,
+            nomeProdutor,
+            cpfProdutor 
+        };
+    }else{
+        json.error = "Campos não enviados!";
+    }
+}
 
 
 module.exports = {
     buscarListagem,
-    buscaUser
+    buscaUser,
+    buscaPorIdProdutor,
+    buscaPorIdPropriedade,
+    cadastro
 };
