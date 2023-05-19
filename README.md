@@ -6,6 +6,10 @@ O objetivo deste projeto é criar uma API que permite cadastrar e gerenciar os p
 
 ## Rodar o projeto
 
+> Para executar as rotas você pode utilizar um software de sua preferência ou, com o servidor rodando utilize a rota do swagger pelo navegador:
+> 
+> [http://localhost:3000/docs/](http://localhost:3000/docs/)
+
 1) Faça o clone do projeto utilizando: git clone https://github.com/Feliipe014/NICEPLANET_Back-End
 
 ```
