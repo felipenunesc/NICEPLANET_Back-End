@@ -16,7 +16,7 @@ O objetivo deste projeto é criar uma API que permite cadastrar e gerenciar os p
 
 <br>
 
-1) Faça o clone do projeto utilizando: git clone https://github.com/Feliipe014/NICEPLANET_Back-End
+1) Com os dados do BD prontos, faça o clone do projeto utilizando: git clone https://github.com/Feliipe014/NICEPLANET_Back-End
 
 ```
 
