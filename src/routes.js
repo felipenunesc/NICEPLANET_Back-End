@@ -1,4 +1,3 @@
-// Gerenciar rotas
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -7,7 +6,6 @@ const bodyParser = require('body-parser');
 const Controllers = require('./controllers/Controllers');
 
 const { cadastrarProdutor, cadastrarPropriedade } = require('./services/Service');
-
 
 router.use(bodyParser.json());
 
@@ -88,7 +86,6 @@ router.get('/buscar', verifyJWT, async (req, res) => {
         res.status(400).json({ message: "Você deve fornecer idProdutor e/ou idPropriedade" }); // Se nenhum dos parâmetros estiver presente, retorna um status 400 (Requisição inválida) e uma mensagem de erro em formato JSON
     }
 });
-
 
 // Rota Cadastro
 router.post('/cadastro', verifyJWT, async (req, res) => {

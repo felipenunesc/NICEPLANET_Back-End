@@ -1,0 +1,324 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "API Documentation",
+      "description": "Documentation for the API endpoints"
+    },
+    "paths": {
+      "/": {
+        "get": {
+          "summary": "Get status",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/login": {
+        "post": {
+          "summary": "User login",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["user", "password"],
+                  "example": {
+                    "user": "example_user",
+                    "password": "example_password"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "auth": {
+                        "type": "boolean"
+                      },
+                      "token": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                        "auth": true,
+                        "token": "example_token"
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/logout": {
+        "post": {
+          "summary": "User logout",
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/buscar": {
+        "get": {
+          "summary": "Rota para buscar",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "idProdutor",
+              "schema": {
+                "type": "string"
+              },
+              "description": "ID of the producer"
+            },
+            {
+              "in": "query",
+              "name": "idPropriedade",
+              "schema": {
+                "type": "string"
+              },
+              "description": "ID of the property"
+            }
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "produtor": {
+                        "type": "object"
+                      },
+                      "propriedade": {
+                        "type": "object"
+                      }
+                    },
+                    "example": {
+                        "produtor": {
+                          "id": 1,
+                          "nome": "João"
+                        },
+                        "propriedade": {
+                          "id": 1,
+                          "nome": "Fazenda A"
+                        }
+                    }    
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/cadastro": {
+        "post": {
+          "summary": "Register",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nomeProdutor": {
+                      "type": "string"
+                    },
+                    "cpfProdutor": {
+                      "type": "string"
+                    },
+                    "nomePropriedade": {
+                      "type": "string"
+                    },
+                    "cadastroRural": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["nomeProdutor", "cpfProdutor", "nomePropriedade", "cadastroRural"],
+                  "example": {
+                    "nomeProdutor": "example_produtor",
+                    "cpfProdutor": "example_cpf",
+                    "nomePropriedade": "example_propriedade",
+                    "cadastroRural": "example_cadastro"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "error": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    }
+  }
