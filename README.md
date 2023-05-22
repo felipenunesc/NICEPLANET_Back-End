@@ -50,7 +50,7 @@ npm start
 
 > Copie o token que foi gerado, mas lembre-se o token tem uma validade de 300 segundos (5 minutos).
 
-    [http://localhost:3000/login](http://localhost:3000/login)
+   [http://localhost:3000/login](http://localhost:3000/login)
     
  ```json
 
